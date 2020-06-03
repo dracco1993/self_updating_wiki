@@ -18,10 +18,11 @@ jobs:
           fetch-depth: 0
       - name: Copy docs/ to submodule
         run: cp -r wiki/. self_updating_wiki.wiki/
-      - run: cd self_updating_wiki.wiki
+      - run: touch outer_file.txt
+      - run: cd self_updating_wiki.wiki/
+      - run: touch sub_file.txt
       - run: git config --local user.email "action@github.com"
       - run: git config --local user.name "GitHub Action"
-      - run: touch test_file.txt
       - run: git add .
       - run: git commit -m "Update wiki from master"
       - name: Push changes
