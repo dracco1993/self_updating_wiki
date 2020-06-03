@@ -22,8 +22,8 @@ jobs:
           fetch-depth: 0
       - working-directory: ${{env.submodule-dir}}
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config user.name "$(git --no-pager log --format=format:'%an' -n 1)"
+          git config user.email "$(git --no-pager log --format=format:'%ae' -n 1)"
           git checkout master
           rm -rf *
           cp -r ../${{env.wiki-dir}} .
