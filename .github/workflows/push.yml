@@ -9,7 +9,7 @@ jobs:
   update-wiki:
     runs-on: ubuntu-latest
     env:
-      wiki-dir: ./wiki
+      wiki-dir: wiki
       submodule-dir: ./self_updating_wiki.wiki
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -20,14 +20,13 @@ jobs:
           submodules: true
           persist-credentials: false
           fetch-depth: 0
-      - name: Copy wiki/ to submodule
-        run: cp -r wiki/. self_updating_wiki.wiki/
       - working-directory: ${{env.submodule-dir}}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git checkout master
           rm -r *
+          cp ../${{env.wiki-dir}} .
           git add .
           git commit -m "Update wiki from master"
           git push "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/dracco1993/self_updating_wiki.wiki.git"
