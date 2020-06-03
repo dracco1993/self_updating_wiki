@@ -33,6 +33,8 @@ jobs:
           git push "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/dracco1993/self_updating_wiki.wiki.git"
       - name: Update main repo
         run: |
+          git config user.name "$(git --no-pager log --format=format:'%an' -n 1)"
+          git config user.email "$(git --no-pager log --format=format:'%ae' -n 1)"
           git add .
           git commit --allow-empty -m "Update wiki from master($GITHUB_SHA)"
           git push "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/dracco1993/self_updating_wiki.git"
