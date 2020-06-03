@@ -26,7 +26,7 @@ jobs:
           git config --local user.name "GitHub Action"
           git checkout master
           rm -r *
-          cp -rt ../${{env.wiki-dir}} .
+          cp -r ../${{env.wiki-dir}} .
           git add .
           git commit -m "Update wiki from master"
           git push "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/dracco1993/self_updating_wiki.wiki.git"
