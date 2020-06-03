@@ -20,16 +20,14 @@ jobs:
           submodules: true
           persist-credentials: false
           fetch-depth: 0
-      - name: Copy docs/ to submodule
+      - name: Copy wiki/ to submodule
         run: cp -r wiki/. self_updating_wiki.wiki/
-      - run: touch outer_file.txt
-      - run: cd self_updating_wiki.wiki/
       - working-directory: ${{env.submodule-dir}}
         run: |
-          touch sub_file.txt
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git checkout master
+          rm -r *
           git add .
           git commit -m "Update wiki from master"
           git push "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/dracco1993/self_updating_wiki.wiki.git"
