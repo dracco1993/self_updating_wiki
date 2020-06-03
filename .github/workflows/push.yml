@@ -1,0 +1,16 @@
+name: On push
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  update-wiki:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Checkout wiki
+      with:
+        submodules: true
