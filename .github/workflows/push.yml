@@ -11,6 +11,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Checkout wiki
+        name: Checkout wiki
         with:
           submodules: true
