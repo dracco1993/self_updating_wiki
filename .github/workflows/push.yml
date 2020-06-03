@@ -21,6 +21,7 @@ jobs:
       - run: cd self_updating_wiki.wiki
       - run: git config --local user.email "action@github.com"
       - run: git config --local user.name "GitHub Action"
+      - run: touch test_file.txt
       - run: git add .
       - run: git commit -m "Update wiki from master"
       - name: Push changes
