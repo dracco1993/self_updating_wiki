@@ -14,9 +14,17 @@ jobs:
         uses: actions/checkout@v2
         with:
           submodules: true
+          persist-credentials: false
+          fetch-depth: 0
       - name: Copy docs/ to submodule
         run: cp -r wiki/ self_updating_wiki.wiki/
       - run: cd self_updating_wiki.wiki
-      - run: git add .
-      - run: git commit -m "Updated wiki from main repo"
-      - run: git push
+      - name: Commit updates
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -m "Add changes" -a
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
