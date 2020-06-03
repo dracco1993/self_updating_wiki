@@ -20,7 +20,8 @@ jobs:
           submodules: true
           persist-credentials: false
           fetch-depth: 0
-      - working-directory: ${{env.submodule-dir}}
+      - name: Update wiki submodule
+        working-directory: ${{env.submodule-dir}}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
@@ -30,3 +31,8 @@ jobs:
           git add .
           git commit --allow-empty -m "Update wiki from master($GITHUB_SHA)"
           git push "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/dracco1993/self_updating_wiki.wiki.git"
+      - name: Update main repo
+        run: |
+          git add .
+          git commit --allow-empty -m "Update wiki from master($GITHUB_SHA)"
+          git push "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/dracco1993/self_updating_wiki.git"
