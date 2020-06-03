@@ -8,6 +8,9 @@ on:
 jobs:
   update-wiki:
     runs-on: ubuntu-latest
+    env:
+      wiki-dir: ./wiki
+      submodule-dir: ./self_updating_wiki.wiki
 
     steps:
       - name: Checkout with submodules
@@ -20,11 +23,13 @@ jobs:
         run: cp -r wiki/. self_updating_wiki.wiki/
       - run: touch outer_file.txt
       - run: cd self_updating_wiki.wiki/
-      - run: touch sub_file.txt
-      - run: git config --local user.email "action@github.com"
-      - run: git config --local user.name "GitHub Action"
-      - run: git add .
-      - run: git commit -m "Update wiki from master"
+      - working-directory: ${{env.submodule-dir}}
+        run: |
+          touch sub_file.txt
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "Update wiki from master"
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
