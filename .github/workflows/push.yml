@@ -17,13 +17,14 @@ jobs:
           persist-credentials: false
           fetch-depth: 0
       - name: Copy docs/ to submodule
-        run: cp -r wiki/ self_updating_wiki.wiki/
+        run: cp -r wiki/. self_updating_wiki.wiki/
       - run: cd self_updating_wiki.wiki
       - name: Commit updates
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git commit -m "Add changes" -a
+          git add .
+          git commit -m "Update wiki from master"
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
