@@ -19,12 +19,10 @@ jobs:
       - name: Copy docs/ to submodule
         run: cp -r wiki/. self_updating_wiki.wiki/
       - run: cd self_updating_wiki.wiki
-      - name: Commit updates
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add .
-          git commit -m "Update wiki from master"
+      - run: git config --local user.email "action@github.com"
+      - run: git config --local user.name "GitHub Action"
+      - run: git add .
+      - run: git commit -m "Update wiki from master"
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
