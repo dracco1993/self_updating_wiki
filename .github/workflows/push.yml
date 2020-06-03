@@ -10,7 +10,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-        name: Checkout wiki
+      - name: Checkout with submodules
+        uses: actions/checkout@v2
         with:
           submodules: true
+      - name: Copy docs/ to submodule
+        run: cp -r wiki/ self_updating_wiki.wiki/
+      - run: cd self_updating_wiki.wiki
+      - run: git add .
+      - run: git commit -m "Updated wiki from main repo"
+      - run: git push
